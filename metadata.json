@@ -1,0 +1,6 @@
+{
+  "name": "사춘기를 부탁해",
+  "description": "우리들의 인사이드아웃 - 공감과 선택형 사춘기 갈등 해결 시뮬레이션 웹앱",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
