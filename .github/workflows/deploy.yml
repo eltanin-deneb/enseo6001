@@ -1,4 +1,4 @@
-yamlname: Deploy to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -17,22 +17,24 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps: coalition.outputs.page_url }}
+      url: ${{ steps: deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: 20
 
       - name: Install dependencies
-        run: bun install
+        run: npm install --legacy-peer-deps
 
       - name: Build Project
-        run: bun run build
+        run: npm run build
+        env:
+          DISABLE_HMR: 'true'
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -40,5 +42,5 @@ jobs:
           path: ./dist
 
       - name: Deploy to GitHub Pages
-        id: coalition
+        id: deployment
         uses: actions/deploy-pages@v4
